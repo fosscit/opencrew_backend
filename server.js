@@ -89,7 +89,11 @@ const checkAdminCredentials = (req, res, next) => {
 
 
 // 1. Serve static files from React build FIRST
+// Serve static files from React's build folder
 app.use(express.static(path.join(__dirname, '../client/build')));
+
+// Serve static assets (JS/CSS) from the build folder
+app.use('/static', express.static(path.join(__dirname, '../client/build/static')));
 
 
 
@@ -187,6 +191,7 @@ app.get('/candidates', checkAuth, async (req, res) => {
 const PORT = process.env.PORT || 5000;
 
 // Handle client-side routing - return all requests to the index.html
+// 3. Catch-all route for client-side routing (LAST)
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
 });
