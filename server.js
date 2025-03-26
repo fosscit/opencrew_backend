@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const admin = require('firebase-admin');
+const path = require('path'); // Keep only one declaration at top
 
 const app = express();
 
@@ -85,6 +86,11 @@ const checkAdminCredentials = (req, res, next) => {
     return res.status(401).send('Unauthorized: Invalid admin credentials');
   }
 };
+
+
+// 1. Serve static files from React build FIRST
+app.use(express.static(path.join(__dirname, '../client/build')));
+
 
 
 
@@ -181,13 +187,10 @@ app.get('/candidates', checkAuth, async (req, res) => {
 const PORT = process.env.PORT || 5000;
 
 // Handle client-side routing - return all requests to the index.html
-const path = require('path');
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build/index.html'));
+  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
 });
 
-// Serve static files from the React app
-app.use(express.static(path.join(__dirname, 'client/build')));
 
 
 app.listen(PORT, () => {
