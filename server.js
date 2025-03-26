@@ -4,7 +4,22 @@ const cors = require('cors');
 const admin = require('firebase-admin');
 
 const app = express();
-app.use(cors());
+
+// Specific CORS configuration
+const corsOptions = {
+  origin: [
+    'http://localhost:3000',  // Local development
+    'https://opencrew.onrender.com/'  // Production domain
+    
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
+
 app.use(express.json());
 
 // Initialize Firebase Admin SDK
