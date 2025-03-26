@@ -10,8 +10,8 @@ const corsOptions = {
     // List of allowed origins
     const allowedOrigins = [
       'http://localhost:3000', 
-      'https://your-production-domain.com', 
-      'https://openscw.onrender.com'
+      'https://opencrew-backend.onrender.com', 
+      'https://opencrew.onrender.com'
     ];
     
     // Allow requests with no origin (like mobile apps or curl requests)
