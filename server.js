@@ -100,6 +100,11 @@ app.get('/home', checkAuth, (req, res) => {
   res.send('Welcome to the Home page!');
 });
 
+// In server.js
+app.get('/admin-portal', checkAuth, (req, res) => {
+  res.json({ message: 'Authenticated', success: true });
+});
+
 app.post('/admin-portal', checkAdminCredentials, (req, res) => {
   res.json({ message: 'Welcome to the Admin Portal!', success: true });
 });
