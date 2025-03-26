@@ -91,8 +91,6 @@ const checkAdminCredentials = (req, res, next) => {
 // 1. Serve static files from React build FIRST
 // Serve static files from React's build folder
 app.use(express.static(path.join(__dirname, '../client/build')));
-
-// Serve static assets (JS/CSS) from the build folder
 app.use('/static', express.static(path.join(__dirname, '../client/build/static')));
 
 
@@ -193,6 +191,7 @@ const PORT = process.env.PORT || 5000;
 // Handle client-side routing - return all requests to the index.html
 // 3. Catch-all route for client-side routing (LAST)
 app.get('*', (req, res) => {
+  console.log('Serving index.html from:', path.join(__dirname, '../client/build', 'index.html')); // Debug
   res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
 });
 
@@ -202,4 +201,6 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
   console.log('Admin Name:', process.env.REACT_APP_ADMIN_NAME);
 console.log('Admin Password:', process.env.REACT_APP_ADMIN_PASSWORD);
+console.log('Current directory:', __dirname);
+console.log('Build path:', path.join(__dirname, '../client/build'));
 });
