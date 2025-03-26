@@ -169,3 +169,14 @@ app.listen(PORT, () => {
   console.log('Admin Name:', process.env.REACT_APP_ADMIN_NAME);
 console.log('Admin Password:', process.env.REACT_APP_ADMIN_PASSWORD);
 });
+
+
+const path = require('path');
+
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, 'client/build')));
+
+// Handle React routing, return all requests to React app
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
