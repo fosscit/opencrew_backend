@@ -179,6 +179,17 @@ app.get('/candidates', checkAuth, async (req, res) => {
 
 
 const PORT = process.env.PORT || 5000;
+
+// Handle client-side routing - return all requests to the index.html
+const path = require('path');
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/build/index.html'));
+});
+
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, 'client/build')));
+
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
   console.log('Admin Name:', process.env.REACT_APP_ADMIN_NAME);
